@@ -1,0 +1,705 @@
+/* ========================================
+   1. THEME
+======================================== */
+
+:root {
+    color-scheme: dark;
+
+    --bg: #111111;
+    --surface: #171717;
+    --surface-hover: #202020;
+
+    --text-primary: #f2f2f2;
+    --text-secondary: #a0a0a0;
+    --text-muted: #707070;
+
+    --border: #646464;
+    --border-strong: #d0d0d0;
+
+    --transition: 150ms ease;
+}
+
+
+/* ========================================
+   2. RESET
+======================================== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 320px;
+    min-height: 100%;
+    background: var(--bg);
+}
+
+body {
+    min-height: 100svh;
+    margin: 0;
+    padding: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    color: var(--text-primary);
+    background: var(--bg);
+
+    -webkit-font-smoothing: antialiased;
+}
+
+
+/* ========================================
+   3. MAIN CONTAINER
+======================================== */
+
+main {
+    width: min(960px, 100%);
+
+    height: min(760px, calc(100svh - 48px));
+    min-height: 0;
+
+    padding: 28px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    border: 1px solid var(--border-strong);
+    background: var(--bg);
+
+    overflow: hidden;
+}
+
+
+/* ========================================
+   4. MAIN HEADER
+======================================== */
+
+main > header {
+    flex: 0 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+main > header h1 {
+    margin: 0;
+
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+}
+
+
+/* ========================================
+   5. LOGIN / LOGOUT SECTION
+======================================== */
+
+.login-name {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
+
+    flex-shrink: 0;
+}
+
+.login-name p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+.login-name p:first-child {
+    color: var(--border);
+}
+
+
+/* ========================================
+   6. BUTTONS
+======================================== */
+
+button {
+    min-height: 40px;
+    padding: 9px 16px;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    border: 1px solid var(--border-strong);
+    border-radius: 0;
+
+    background: transparent;
+    color: var(--text-primary);
+
+    font: inherit;
+    line-height: 1.3;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition:
+        background var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+}
+
+button:hover {
+    background: var(--text-primary);
+    color: var(--bg);
+}
+
+button:active {
+    background: #cccccc;
+    color: #111111;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 3px;
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+
+/* ========================================
+   7. TODO INPUT AREA
+======================================== */
+
+.textArea {
+    flex: 0 0 auto;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 205px;
+    gap: 14px;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 86px;
+}
+
+.textArea textarea {
+    display: block;
+    resize: none;
+    width: 100%;
+    min-width: 0;
+    min-height: 86px;
+    height: 86px;
+
+    padding: 15px;
+
+    resize: vertical;
+
+    border: 1px solid var(--border-strong);
+    border-radius: 0;
+    outline: none;
+
+    background: var(--surface);
+    color: var(--text-primary);
+
+    font: inherit;
+    line-height: 1.6;
+
+    transition: border-color var(--transition);
+}
+
+.textArea textarea::placeholder {
+    color: var(--text-secondary);
+    opacity: 1;
+}
+
+.textArea textarea:focus {
+    border-color: var(--text-primary);
+}
+
+.textArea textarea:focus-visible {
+    outline: 1px solid var(--text-primary);
+    outline-offset: 2px;
+}
+
+
+/* ========================================
+   8. ADD / AI / MODEL CONTROLS
+======================================== */
+
+.textArea > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.add-ai-btns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+
+    width: 100%;
+}
+
+.add-ai-btns button {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+}
+
+/* Model selector wrapper */
+
+.textArea > div > div:not(.add-ai-btns) {
+    width: 100%;
+    min-width: 0;
+}
+
+.textArea select {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    height: 36px;
+
+    padding: 6px 10px;
+
+    border: 1px solid var(--border);
+    border-radius: 0;
+
+    background: var(--surface);
+    color: var(--text-primary);
+
+    font: inherit;
+    cursor: pointer;
+}
+
+.textArea select:hover {
+    border-color: var(--border-strong);
+}
+
+.textArea select:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 2px;
+}
+
+
+/* ========================================
+   9. TASK SECTION
+======================================== */
+
+.heading-text-div {
+    display: flex;
+    flex: 1 1 0;
+
+    flex-direction: column;
+    gap: 14px;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+}
+
+/* Task counter and progress header */
+
+.heading-text-div > header {
+    flex: 0 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    width: 100%;
+}
+
+.heading-text-div > header > div:first-child {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+
+    min-width: 0;
+}
+
+.heading-text-div > header > div:first-child span {
+    font-size: 16px;
+    color: var(--text-primary);
+}
+
+.heading-text-div > header > div:first-child p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+
+
+/* ========================================
+   10. PROGRESS
+======================================== */
+
+.progress-div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    min-width: 0;
+
+    color: var(--text-secondary);
+}
+
+.progress-div > span {
+    white-space: nowrap;
+}
+
+.progress-bar {
+    width: 140px;
+    max-width: 100%;
+    height: 10px;
+
+    flex: 0 1 140px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--border);
+    border-radius: 0;
+
+    background: var(--surface);
+}
+
+/* Optional progress fill if you add a span in JSX */
+
+.progress-bar > span {
+    display: block;
+
+    height: 100%;
+    width: 0%;
+
+    background: var(--text-primary);
+
+    transition: width 200ms ease;
+}
+
+
+/* ========================================
+   11. TODO LIST - INDEPENDENT SCROLL
+======================================== */
+
+.todo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    flex: 1 1 0;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+
+    padding: 0 8px 0 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) var(--bg);
+}
+
+/* Chrome, Edge and Safari */
+
+.todo-list::-webkit-scrollbar {
+    width: 7px;
+}
+
+.todo-list::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+}
+
+.todo-list::-webkit-scrollbar-thumb:hover {
+    background: var(--border-strong);
+}
+
+
+/* ========================================
+   12. INDIVIDUAL TODO CARDS
+======================================== */
+
+.todo-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+
+    flex: 0 0 auto;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 62px;
+
+    padding: 14px 16px;
+
+    border: 1px solid var(--border);
+    border-radius: 0;
+
+    background: transparent;
+
+    transition:
+        background var(--transition),
+        border-color var(--transition);
+}
+
+.todo-card:hover {
+    background: var(--surface-hover);
+    border-color: var(--border-strong);
+}
+
+
+/* ========================================
+   13. TODO CONTENT
+======================================== */
+
+.todo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 14px;
+
+    flex: 1;
+    min-width: 0;
+}
+
+/* Checkbox placeholder: your current JSX uses <span>X</span> */
+
+.todo > span {
+    display: grid;
+    place-items: center;
+
+    flex: 0 0 21px;
+
+    width: 21px;
+    height: 21px;
+
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+
+    color: var(--text-secondary);
+    font-size: 10px;
+
+    cursor: pointer;
+}
+.todo > span:hover{
+    background-color: rgba(0, 128, 0, 0.582);
+    color: white;
+}
+/* Task text */
+
+.todo p {
+    min-width: 0;
+    margin: 0;
+
+    color: var(--text-primary);
+
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Optional completed-state class */
+
+.todo-card.completed p {
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+.todo-card.completed .todo > span {
+    background: var(--text-primary);
+    color: var(--bg);
+    border-color: var(--text-primary);
+}
+
+
+/* ========================================
+   14. RESPONSIVE: TABLETS
+======================================== */
+
+@media (max-width: 720px) {
+    body {
+        padding: 16px;
+        align-items: stretch;
+    }
+
+    main {
+        width: 100%;
+        height: calc(100svh - 32px);
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .textArea {
+        grid-template-columns: minmax(0, 1fr) 175px;
+        gap: 10px;
+    }
+
+    .add-ai-btns {
+        gap: 8px;
+    }
+
+    .progress-bar {
+        width: 100px;
+        flex-basis: 100px;
+    }
+}
+
+
+/* ========================================
+   15. RESPONSIVE: MOBILE
+======================================== */
+
+@media (max-width: 520px) {
+    body {
+        padding: 10px;
+    }
+
+    main {
+        height: calc(100svh - 20px);
+        padding: 14px;
+        gap: 18px;
+    }
+
+    main > header {
+        gap: 10px;
+        padding-bottom: 14px;
+    }
+
+    main > header h1 {
+        font-size: 16px;
+    }
+
+    .login-name {
+        gap: 8px;
+    }
+
+    .login-name button {
+        min-height: 36px;
+        padding: 7px 10px;
+    }
+
+    .textArea {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 10px;
+    }
+
+    .textArea textarea {
+        height: 72px;
+        min-height: 72px;
+        resize: none;
+    }
+
+    .textArea > div {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+    }
+
+    .add-ai-btns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .heading-text-div {
+        gap: 10px;
+    }
+
+    .heading-text-div > header {
+        align-items: flex-start;
+    }
+
+    .progress-div {
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .progress-bar {
+        flex-basis: 90px;
+        width: 90px;
+    }
+
+    .todo-card {
+        min-height: 56px;
+        padding: 12px;
+    }
+
+    .todo {
+        gap: 10px;
+    }
+}
+
+
+/* ========================================
+   16. SHORT SCREENS
+======================================== */
+
+@media (max-height: 600px) and (min-width: 521px) {
+    body {
+        align-items: flex-start;
+    }
+
+    main {
+        height: calc(100svh - 32px);
+        gap: 14px;
+        padding: 18px;
+    }
+
+    .textArea {
+        min-height: 68px;
+    }
+
+    .textArea textarea {
+           height: 100%;
+        resize: none;
+    }
+
+    .todo-card {
+        min-height: 52px;
+        padding: 10px 14px;
+    }
+}
+
+
+/* ========================================
+   17. ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
+}
