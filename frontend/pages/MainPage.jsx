@@ -1,13 +1,15 @@
-import { useState } from "react"
-import TodoCard from "./components/TodoCard"
+import { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router';
+import TodoCard from "../components/TodoCard"
+import { UserContext } from '../context/userContext';
+import logoutApi from '../apis/logoutApi';
 
-function App() {
+function MainPage() {
     const [text, setText] = useState('');
     const [completed, setCompleted] = useState(4);
-    const [user, setUser] = useState({
-        name: "RH",
-        email: "reyhan@gmx.com",
-    })
+    const { user, setUser } = useContext(UserContext);
+    const [logoutError, setLogoutError] = useState("");
+    const navigate = useNavigate();
     const [models, setModels] = useState([
         "gemini-3.1 pro",
         "claude-opus 5.1"
@@ -64,25 +66,53 @@ function App() {
             completed: false,
         },
     ]);
+
+    useEffect(()=>{
+        console.log('setting')
+    }, [setUser])
+
+    function useAi() {
+        return
+    }
+    function addTodo() {
+        return
+    }
+    async function loginRegisterHandler() {
+        if (!user) {
+            navigate('/login');
+            return;
+        }
+
+        setLogoutError("");
+        try {
+            await logoutApi();
+            setUser(null);
+            navigate('/login');
+        } catch (error) {
+            console.error("Logout failed:", error);
+            setLogoutError(error.message || "Unable to log out.");
+        }
+    }
     return (
         <main>
             <header >
                 <h1>Task / List</h1>
                 <div className="login-name">
                     <p>|</p>
-                    <p title={user?.email}>{user?.name}</p>
-                    <button>{!user?"LOGIN":"LOGOUT"}</button>
+                    <p title={user?.email}>{user?.username}</p>
+                    <button onClick={loginRegisterHandler}>{!user ? "LOGIN" : "LOGOUT"}</button>
                 </div>
             </header>
+            {logoutError && <p role="alert">{logoutError}</p>}
             <div className="textArea">
                 <textarea type="text" placeholder="Whats need to get done?" />
                 <div>
                     <div className="add-ai-btns">
-                        <button>ADD</button>
-                        <button>AI++</button>
+                        <button onClick={addTodo}>ADD</button>
+                        <button onClick={useAi}>AI++</button>
                     </div>
                     <div>
-                        <select>
+                        <select className="select-model">
                             {
                                 models.map((single, i) => <option key={i} value="gemini">{single}</option>)
                             }
@@ -129,6 +159,7 @@ function App() {
 
         </main>
     )
+
 }
 
-export default App
+export default MainPage

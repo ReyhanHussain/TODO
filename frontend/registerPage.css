@@ -1,0 +1,431 @@
+
+/* ========================================
+   REGISTER PAGE
+   Matches the Task List monochrome theme
+======================================== */
+
+/* Main page container */
+main.register-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    max-width: none;
+
+    height: auto;
+    min-height: calc(100svh - 48px);
+
+    margin: 0;
+    padding: 32px 20px;
+
+    gap: 0;
+    overflow: visible;
+
+    border: none;
+    background: var(--bg, #111111);
+    color: var(--text-primary, #f2f2f2);
+
+    font-family:
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        monospace;
+}
+
+/* Registration card */
+.register-card {
+    width: 100%;
+    max-width: 460px;
+    min-width: 0;
+
+    padding: 30px;
+
+    border: 1px solid var(--border-strong, #d0d0d0);
+    border-radius: 0;
+
+    background: var(--bg, #111111);
+    color: var(--text-primary, #f2f2f2);
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.register-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 16px;
+    padding-bottom: 22px;
+
+    border-bottom: 1px solid var(--border, #646464);
+}
+
+.register-title {
+    min-width: 0;
+}
+
+.register-title h1 {
+    margin: 0;
+
+    font-size: 21px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.03em;
+}
+
+.register-title p {
+    margin: 8px 0 0;
+
+    color: var(--text-secondary, #a0a0a0);
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.register-label {
+    flex-shrink: 0;
+
+    margin-top: 5px;
+    padding: 5px 8px;
+
+    border: 1px solid var(--border, #646464);
+
+    color: var(--text-secondary, #a0a0a0);
+
+    font-size: 10px;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+}
+
+/* ========================================
+   FORM
+======================================== */
+
+.register-form {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-width: 0;
+
+    gap: 19px;
+    margin-top: 25px;
+}
+
+.register-field {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-width: 0;
+
+    gap: 8px;
+}
+
+.register-field label {
+    display: block;
+
+    margin: 0;
+
+    color: var(--text-secondary, #a0a0a0);
+
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.5;
+    letter-spacing: 0.07em;
+}
+
+/* Input fields */
+.register-field input {
+    display: block;
+
+    width: 100%;
+    min-width: 0;
+    height: 46px;
+
+    margin: 0;
+    padding: 0 13px;
+
+    border: 1px solid var(--border, #646464);
+    border-radius: 0;
+    outline: none;
+
+    background: var(--surface, #171717);
+    color: var(--text-primary, #f2f2f2);
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: normal;
+
+    transition:
+        border-color var(--transition, 150ms ease),
+        background var(--transition, 150ms ease);
+}
+
+.register-field input::placeholder {
+    color: var(--text-muted, #707070);
+    opacity: 1;
+}
+
+.register-field input:hover {
+    border-color: var(--border-strong, #d0d0d0);
+}
+
+.register-field input:focus {
+    border-color: var(--text-primary, #f2f2f2);
+    background: var(--surface-hover, #202020);
+}
+
+.register-field input:focus-visible {
+    outline: 1px solid var(--text-primary, #f2f2f2);
+    outline-offset: 2px;
+}
+
+/* Password guidance */
+.register-hint {
+    color: var(--text-muted, #707070);
+
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+/* ========================================
+   VALIDATION MESSAGE
+======================================== */
+
+.register-message {
+    margin: -3px 0 0;
+    padding: 11px 12px;
+
+    border: 1px solid var(--border, #646464);
+
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.register-message.is-error {
+    border-color: #a85c5c;
+    color: #e5a0a0;
+}
+
+.register-message.is-success {
+    border-color: var(--border-strong, #d0d0d0);
+    color: var(--text-primary, #f2f2f2);
+}
+
+/* ========================================
+   CREATE ACCOUNT BUTTON
+======================================== */
+
+.register-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 46px;
+
+    margin: 4px 0 0;
+    padding: 12px 14px;
+
+    border: 1px solid var(--border-strong, #d0d0d0);
+    border-radius: 0;
+
+    background: transparent;
+    color: var(--text-primary, #f2f2f2);
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition, 150ms ease),
+        color var(--transition, 150ms ease),
+        border-color var(--transition, 150ms ease);
+}
+
+.register-button span {
+    font-size: 18px;
+    line-height: 1;
+}
+
+.register-button:hover {
+    border-color: var(--text-primary, #f2f2f2);
+    background: var(--text-primary, #f2f2f2);
+    color: var(--bg, #111111);
+}
+
+.register-button:active {
+    background: #cccccc;
+    color: #111111;
+}
+
+.register-button:focus-visible {
+    outline: 2px solid var(--text-primary, #f2f2f2);
+    outline-offset: 3px;
+}
+
+.register-button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* ========================================
+   LOGIN FOOTER
+======================================== */
+
+.register-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-top: 25px;
+    padding-top: 19px;
+
+    border-top: 1px solid var(--border, #646464);
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.register-footer span {
+    color: var(--text-secondary, #a0a0a0);
+}
+
+.register-footer a {
+    display: inline-block;
+
+    padding-bottom: 3px;
+
+    border-bottom: 1px solid var(--border-strong, #d0d0d0);
+
+    color: var(--text-primary, #f2f2f2);
+    text-decoration: none;
+
+    font-weight: 500;
+    letter-spacing: 0.04em;
+
+    transition:
+        color var(--transition, 150ms ease),
+        border-color var(--transition, 150ms ease);
+}
+
+.register-footer a:hover {
+    color: var(--text-secondary, #a0a0a0);
+    border-color: var(--text-secondary, #a0a0a0);
+}
+
+.register-footer a:focus-visible {
+    outline: 1px solid var(--text-primary, #f2f2f2);
+    outline-offset: 4px;
+}
+
+/* ========================================
+   BOTTOM METADATA
+======================================== */
+
+.register-bottom-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+    margin-top: 23px;
+    padding-top: 13px;
+
+    border-top: 1px solid #303030;
+
+    color: var(--text-muted, #707070);
+
+    font-size: 9px;
+    line-height: 1.5;
+    letter-spacing: 0.06em;
+}
+
+/* ========================================
+   RESPONSIVE: TABLET
+======================================== */
+
+@media (max-width: 720px) {
+    main.register-page {
+        min-height: calc(100svh - 32px);
+        padding: 24px 16px;
+    }
+
+    .register-card {
+        max-width: 440px;
+        padding: 26px;
+    }
+}
+
+/* ========================================
+   RESPONSIVE: MOBILE
+======================================== */
+
+@media (max-width: 520px) {
+    main.register-page {
+        min-height: calc(100svh - 20px);
+        padding: 20px 10px;
+    }
+
+    .register-card {
+        padding: 21px 17px;
+    }
+
+    .register-header {
+        gap: 10px;
+        padding-bottom: 18px;
+    }
+
+    .register-title h1 {
+        font-size: 18px;
+    }
+
+    .register-label {
+        font-size: 9px;
+    }
+
+    .register-form {
+        gap: 17px;
+        margin-top: 21px;
+    }
+
+    .register-field input {
+        height: 44px;
+    }
+
+    .register-footer {
+        align-items: flex-start;
+        margin-top: 22px;
+    }
+
+    .register-bottom-line {
+        font-size: 8px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .register-field input,
+    .register-button,
+    .register-footer a {
+        transition: none;
+    }
+}
