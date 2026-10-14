@@ -480,8 +480,6 @@ button:disabled {
 
 
 .todo-card {
-    pointer-events: stroke;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -499,10 +497,62 @@ button:disabled {
     border-radius: 0;
 
     background: transparent;
+    position: relative;
 
     transition:
         background var(--transition),
         border-color var(--transition);
+}
+
+.todo-card-loading {
+    gap: 14px;
+}
+
+.todo-skeleton-line,
+.todo-skeleton-actions {
+    background: linear-gradient(
+        90deg,
+        var(--border) 25%,
+        var(--border-strong) 50%,
+        var(--border) 75%
+    );
+    background-size: 200% 100%;
+    animation: todo-shimmer 1.4s ease-in-out infinite;
+}
+
+.todo-skeleton-line {
+    width: 58%;
+    height: 12px;
+}
+
+.todo-skeleton-actions {
+    width: 40px;
+    height: 20px;
+}
+
+.todo-card-deleting {
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.todo-card-deleting::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: linear-gradient(
+        90deg,
+        transparent 25%,
+        rgba(255, 255, 255, 0.16) 50%,
+        transparent 75%
+    );
+    background-size: 200% 100%;
+    animation: todo-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes todo-shimmer {
+    to {
+        background-position: -200% 0;
+    }
 }
 
 .todo-card:hover {

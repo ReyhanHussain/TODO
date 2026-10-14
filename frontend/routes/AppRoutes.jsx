@@ -3,43 +3,48 @@ import { Route, Routes, Navigate } from 'react-router';
 import MainPage from "../pages/MainPage";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/userContext';
 import Loader from '../pages/Loader';
 import NotFound from '../pages/NotFound';
 function AppRoutes() {
     const { setUser, setTodo, user } = useContext(UserContext);
+    const [checkingAuth, setCheckingAuth] = useState(true);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 const { data, Tododata } = await getMe();
-
-                if (data.user) {
-                    setUser((currentUser) => currentUser ?? data.user);
-                }
-                if (Tododata) {
-                    setTodo(Tododata.todo);
-                }
-
+                setUser(data.user);
+                setTodo(Tododata.todo);
             } catch (error) {
-                console.error("Failed to fetch user:", error);
+                setUser(null);
+                setTodo([]);
+                if (error.status !== 401) {
+                    console.error("Failed to restore login:", error);
+                }
+            } finally {
+                setCheckingAuth(false);
             }
         };
 
         fetchUser();
-    }, [user]);
+    }, [setUser, setTodo]);
 
     return (
         <Routes>
             <Route
                 path="/"
-                element={<Navigate to="/login" replace />}
+                element={
+                    checkingAuth
+                        ? <Loader />
+                        : <Navigate to={user ? "/home" : "/login"} replace />
+                }
             />
 
             <Route
                 path="/home"
-                element={<MainPage />}
+                element={<MainPage loading={checkingAuth} />}
             />
             <Route
                 path="/Loader"
@@ -52,17 +57,29 @@ function AppRoutes() {
 
             <Route
                 path="/register"
-                element={<RegisterPage />}
+                element={
+                    checkingAuth
+                        ? <Loader />
+                        : user
+                            ? <Navigate to="/home" replace />
+                            : <RegisterPage />
+                }
             />
 
             <Route
                 path="/login"
-                element={<LoginPage />}
+                element={
+                    checkingAuth
+                        ? <Loader />
+                        : user
+                            ? <Navigate to="/home" replace />
+                            : <LoginPage />
+                }
             />
 
             <Route
                 path="/tasks"
-                element={<MainPage />}
+                element={<MainPage loading={checkingAuth} />}
             />
         </Routes>
     );

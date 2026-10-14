@@ -52,6 +52,7 @@ function LoginPage() {
                 {/* Header */}
                 <header className="register-header">
                     <div className="register-title">
+                        <Link className="auth-back-link" to="/home">← BACK TO TASKS</Link>
                         <h1>Task / Login</h1>
                         <p>Welcome back. Sign in to continue.</p>
                     </div>

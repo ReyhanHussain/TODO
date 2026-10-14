@@ -92,6 +92,7 @@ function RegisterPage() {
 
                 <header className="register-header">
                     <div className="register-title">
+                        <Link className="auth-back-link" to="/home">← BACK TO TASKS</Link>
                         <h1>Task / Register</h1>
                         <p>Create your account to get started.</p>
                     </div>

@@ -2,12 +2,14 @@ import { useContext, useState } from "react"
 import { UserContext } from "../context/userContext.jsx";
 import deleteTodo from '../apis/todos/deleteTodo.js'
 import editTodo from "../apis/todos/editTodo.js";
-function TodoCard({ id, todo, completed, edited }) {
+function TodoCard({ id, todo, completed, edited, loading = false }) {
   const [edit, setEdit] = useState('');
+  const [deleting, setDeleting] = useState(false);
   const { setTodo, setMessage } = useContext(UserContext);
 
   const [editingText, setEditingText] = useState('');
   async function onDelete() {
+    setDeleting(true);
     try {
       const data = await deleteTodo(id);
       setTodo((curr) => curr.filter((single) => single._id !== id));
@@ -15,6 +17,8 @@ function TodoCard({ id, todo, completed, edited }) {
 
     } catch (error) {
       setMessage(error.message);
+    } finally {
+      setDeleting(false);
     }
   }
   function onEdit() {
@@ -32,8 +36,18 @@ function TodoCard({ id, todo, completed, edited }) {
 
     }
   }
+
+  if (loading) {
+    return (
+      <div className="todo-card todo-card-loading" aria-hidden="true">
+        <div className="todo-skeleton-line" />
+        <div className="todo-skeleton-actions" />
+      </div>
+    );
+  }
+
   return (
-    <div className="todo-card" >
+    <div className={`todo-card${deleting ? " todo-card-deleting" : ""}`} aria-busy={deleting}>
       <div className="todo">
         {
           edit ?
@@ -68,6 +82,7 @@ function TodoCard({ id, todo, completed, edited }) {
                 className="delete-btn"
                 onClick={onDelete}
                 aria-label="Delete todo"
+                disabled={deleting}
               >
                 ×
               </button>
@@ -75,6 +90,7 @@ function TodoCard({ id, todo, completed, edited }) {
                 className="delete-btn"
                 onClick={onEdit}
                 aria-label="Edit todo"
+                disabled={deleting}
               >
                 ✎
               </button></>

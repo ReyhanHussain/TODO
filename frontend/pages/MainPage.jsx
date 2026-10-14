@@ -5,7 +5,7 @@ import { UserContext } from '../context/userContext';
 import logoutApi from '../apis/auth/logoutApi';
 import addTask from '../apis/todos/addTask';
 
-function MainPage() {
+function MainPage({ loading = false }) {
     const [text, setText] = useState('');
     const [completed, setCompleted] = useState(4);
     const { user, setUser, todo, setTodo, message, setMessage } = useContext(UserContext);
@@ -72,8 +72,13 @@ function MainPage() {
         setMessage('');
     }
     async function addTodo() {
+        if (!user) {
+            setMessage('Please log in or register to add a todo.');
+            return;
+        }
+
         try {
-            if (text.length == 0) {
+            if (!text.trim()) {
                 setMessage('Todo Empty!!')
                 return
             } const data = await addTask(text);
@@ -173,9 +178,13 @@ function MainPage() {
 
                 <section className="todo-list">
                     {
-                        todo?.map((singleTodo) => {
-                            return <TodoCard key={singleTodo._id} id={singleTodo._id} todo={singleTodo.title} completed={singleTodo.completed} />
-                        })
+                        loading
+                            ? Array.from({ length: 3 }, (_, index) => (
+                                <TodoCard key={index} loading />
+                            ))
+                            : todo?.map((singleTodo) => (
+                                <TodoCard key={singleTodo._id} id={singleTodo._id} todo={singleTodo.title} completed={singleTodo.completed} />
+                            ))
                     }
                 </section>
             </section>
