@@ -5,6 +5,13 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { BlackList } from "../models/blackListedToken.model.js";
 const authRouter = Router();
+const isProduction = process.env.NODE_ENV === "production";
+const tokenCookieOptions = {
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: isProduction ? "none" : "lax",
+    path: "/"
+};
 
 authRouter.post('/login', async (req, res) => {
     try {
@@ -53,9 +60,7 @@ authRouter.post('/login', async (req, res) => {
 
         //send the token
 
-        res.cookie('token', token, {
-            httpOnly: "true"
-        });
+        res.cookie('token', token, tokenCookieOptions);
 
         //send message
 
@@ -123,9 +128,7 @@ authRouter.post('/register', async (req, res) => {
 
         //send the token
 
-        res.cookie('token', token, {
-            httpOnly: "true"
-        });
+        res.cookie('token', token, tokenCookieOptions);
 
         //send message
 
@@ -153,10 +156,7 @@ authRouter.post('/logout', async (req, res) => {
                 token: tokenFromCookie
             })
         }
-        res.clearCookie('token', {
-            httpOnly: true,
-            path: '/'
-        });
+        res.clearCookie('token', tokenCookieOptions);
         return res.status(200).json({
             message: "logged out successfully!!"
         })

@@ -5,11 +5,12 @@ import authRouter from './routers/auth.router.js';
 import todoRouter from './routers/todo.router.js';
 import authMe from './middlewares/auth.middleware.js';
 const app = express();
+const frontendOrigin = process.env.FRONTEND_URL || "http://localhost:1234";
 
 app.use(cookieParser())
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:1234",
+    origin: frontendOrigin,
     credentials: true
 }));
 //api routes
