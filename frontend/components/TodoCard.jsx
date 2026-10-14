@@ -1,17 +1,36 @@
-import { useState } from "react"
-
-function TodoCard({ todo }) {
+import { useContext, useState } from "react"
+import { UserContext } from "../context/userContext.jsx";
+import deleteTodo from '../apis/todos/deleteTodo.js'
+import editTodo from "../apis/todos/editTodo.js";
+function TodoCard({ id, todo, completed, edited }) {
   const [edit, setEdit] = useState('');
+  const { setTodo, setMessage } = useContext(UserContext);
+
   const [editingText, setEditingText] = useState('');
-  function onDelete() {
-    
+  async function onDelete() {
+    try {
+      const data = await deleteTodo(id);
+      setTodo((curr) => curr.filter((single) => single._id !== id));
+      setMessage(data.message);
+
+    } catch (error) {
+      setMessage(error.message);
+    }
   }
   function onEdit() {
-    setEditingText(todo)
+    setEditingText(todo);
     setEdit(true);
   }
-  function putEdit() {
-    setEdit(false);
+  async function putEdit() {
+    try {
+      const data = await editTodo({ id, title: editingText, completed });
+      setTodo((curr) => curr.map((item) => item._id === id ? { ...item, title: editingText, edited: true } : item));
+      setMessage(data.message);
+      setEdit(false);
+    } catch (error) {
+      setMessage(error.message);
+
+    }
   }
   return (
     <div className="todo-card" >

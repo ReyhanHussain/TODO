@@ -255,9 +255,8 @@ button:disabled {
 
 .add-ai-btns {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) 65px;
     gap: 10px;
-
     width: 100%;
 }
 
@@ -889,4 +888,28 @@ button:disabled {
     .register-header h1 {
         font-size: 20px;
     }
+}
+
+
+.ai-btn{
+    background-color: var(--text-secondary)
+}
+
+.toaster{
+    position: absolute;
+    top: 2em;
+    right: 3em;
+    border: 1px solid var(--border);
+    padding-block: 0.5em;
+    padding-inline: 1.5em ;
+    cursor: pointer;
+    gap: 0.8em;
+    display:none;
+
+
+}
+
+
+.toaster span{
+    color:red;
 }

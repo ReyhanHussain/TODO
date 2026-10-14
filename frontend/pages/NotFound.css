@@ -1,0 +1,283 @@
+
+/* ========================================
+   NOT FOUND — ORIGINAL MONOCHROME THEME
+======================================== */
+
+.not-found-screen {
+    position: relative;
+    isolation: isolate;
+
+    width: min(960px, 100%);
+    min-height: min(760px, calc(100svh - 48px));
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 28px;
+    overflow: hidden;
+
+    background: var(--bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
+}
+
+/* Subtle background grid */
+
+.not-found-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(
+            to right,
+            var(--border) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            var(--border) 1px,
+            transparent 1px
+        );
+
+    background-size: 42px 42px;
+    opacity: 0.09;
+
+    mask-image: radial-gradient(
+        ellipse at center,
+        black,
+        transparent 75%
+    );
+
+    pointer-events: none;
+}
+
+/* Header */
+
+.not-found-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.not-found-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.not-found-brand-mark {
+    display: grid;
+    place-items: center;
+
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid var(--border-strong);
+    font-size: 14px;
+    letter-spacing: -1px;
+}
+
+.not-found-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--text-muted);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.not-found-label span {
+    color: var(--text-primary);
+}
+
+/* Main content */
+
+.not-found-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 470px;
+
+    margin: auto;
+    padding: 48px 0;
+
+    text-align: center;
+}
+
+.not-found-code {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin-bottom: 24px;
+
+    font-size: clamp(88px, 17vw, 148px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -10px;
+}
+
+.not-found-code > span {
+    display: inline-block;
+}
+
+.not-found-zero {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--text-secondary);
+}
+
+.not-found-eyebrow {
+    margin: 0 0 12px;
+
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.not-found-content h1 {
+    margin: 0;
+
+    font-size: clamp(21px, 4vw, 30px);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: -0.8px;
+}
+
+.not-found-description {
+    max-width: 350px;
+    margin: 14px 0 26px;
+
+    color: var(--text-secondary);
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+/* Home button — visual only */
+
+.not-found-home-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-height: 44px;
+    padding: 0 18px;
+
+    border: 1px solid var(--border-strong);
+    border-radius: 0;
+
+    background: transparent;
+    color: var(--text-primary);
+
+    font: inherit;
+    font-size: 11px;
+    letter-spacing: 0.6px;
+
+    cursor: pointer;
+
+    transition:
+        background var(--transition),
+        color var(--transition),
+        border-color var(--transition);
+}
+
+.not-found-home-button:hover {
+    background: var(--text-primary);
+    color: var(--bg);
+}
+
+.not-found-home-button:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 4px;
+}
+
+.not-found-home-button > span {
+    font-size: 17px;
+    transition: transform var(--transition);
+}
+
+.not-found-home-button:hover > span {
+    transform: translateX(-3px);
+}
+
+/* Error reference */
+
+.not-found-reference {
+    margin-top: 24px;
+
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.6px;
+    overflow-wrap: anywhere;
+}
+
+/* Footer */
+
+.not-found-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+
+    color: var(--text-muted);
+    font-size: 9px;
+    letter-spacing: 0.8px;
+}
+
+/* Mobile */
+
+@media (max-width: 520px) {
+    .not-found-screen {
+        min-height: calc(100svh - 20px);
+        padding: 18px;
+    }
+
+    .not-found-content {
+        padding: 32px 0;
+    }
+
+    .not-found-code {
+        font-size: 96px;
+        letter-spacing: -7px;
+    }
+
+    .not-found-content h1 {
+        font-size: 23px;
+    }
+
+    .not-found-description {
+        max-width: 290px;
+        font-size: 11px;
+    }
+
+    .not-found-footer {
+        font-size: 8px;
+    }
+}
+
+/* Reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+    .not-found-home-button,
+    .not-found-home-button > span {
+        transition: none;
+    }
+}

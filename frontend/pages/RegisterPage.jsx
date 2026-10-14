@@ -5,7 +5,7 @@ import "../registerPage.css";
 import {UserContext} from '../context/userContext'
 
 function RegisterPage() {
-        const {user, setUser} = useContext(UserContext);
+        const {setUser, setTodo} = useContext(UserContext);
 
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -49,11 +49,12 @@ function RegisterPage() {
             setMessage(
                 data.message || "Registration successful!"
             );
+            setTodo([]);
             setUser(data.user);
             setError(false);
             navigate('/home')
         } catch (error) {
-            console.error("Registration error:", error);
+            console.log("Registration error:", error);
 
             setMessage(
                 error.message || "Unable to connect to the server"

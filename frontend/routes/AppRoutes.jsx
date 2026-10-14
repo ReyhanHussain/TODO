@@ -1,27 +1,34 @@
-import getMe from '../apis/me';
-import { Route, Routes,Navigate  } from 'react-router';
+import getMe from '../apis/auth/me';
+import { Route, Routes, Navigate } from 'react-router';
 import MainPage from "../pages/MainPage";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import { useContext, useEffect } from 'react';
 import { UserContext } from '../context/userContext';
+import Loader from '../pages/Loader';
+import NotFound from '../pages/NotFound';
 function AppRoutes() {
-    const { setUser } = useContext(UserContext);
+    const { setUser, setTodo, user } = useContext(UserContext);
 
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const data =  await getMe();
+                const { data, Tododata } = await getMe();
+
                 if (data.user) {
                     setUser((currentUser) => currentUser ?? data.user);
                 }
+                if (Tododata) {
+                    setTodo(Tododata.todo);
+                }
+
             } catch (error) {
                 console.error("Failed to fetch user:", error);
             }
         };
 
         fetchUser();
-    }, [setUser]);
+    }, [user]);
 
     return (
         <Routes>
@@ -33,6 +40,14 @@ function AppRoutes() {
             <Route
                 path="/home"
                 element={<MainPage />}
+            />
+            <Route
+                path="/Loader"
+                element={<Loader />}
+            />
+            <Route
+                path="*"
+                element={<NotFound />}
             />
 
             <Route

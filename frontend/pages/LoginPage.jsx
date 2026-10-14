@@ -3,14 +3,14 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import "../registerPage.css";
 import { UserContext } from "../context/userContext";
-import loginApi from "../apis/loginApi";
+import loginApi from "../apis/auth/loginApi";
 
 function LoginPage() {
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
-    const { setUser } = useContext(UserContext);
+    const { setUser,setTodo} = useContext(UserContext);
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
@@ -33,6 +33,7 @@ function LoginPage() {
         try {
             setError(false)
             const data = await loginApi(formData);
+            setTodo([]);
             setUser(data.user);
             setMessage(data.message);
             setError(false);
