@@ -11,6 +11,7 @@ function MainPage({ loading = false }) {
     const { user, setUser, todo, setTodo, message, setMessage } = useContext(UserContext);
     const [logoutError, setLogoutError] = useState("");
     const [addingTodo, setAddingTodo] = useState(false);
+    const [loggingOut, setLoggingOut] = useState(false);
 
     const navigate = useNavigate();
     const [models, setModels] = useState([
@@ -18,9 +19,6 @@ function MainPage({ loading = false }) {
         "claude-opus 5.1"
     ])
 
-    function closeToaster() {
-        setMessage('');
-    }
     async function addTodo() {
         if (!user) {
             setMessage('Please log in or register to add a todo.');
@@ -68,12 +66,16 @@ function MainPage({ loading = false }) {
 
         setLogoutError("");
         try {
+            setLoggingOut(true);
             await logoutApi();
             setUser(null);
+            setTodo([]);
             navigate('/login');
         } catch (error) {
             console.log("Logout failed:", error);
             setLogoutError(error.message || "Unable to log out.");
+        } finally {
+            setLoggingOut(false);
         }
     }
     return (
@@ -90,7 +92,9 @@ function MainPage({ loading = false }) {
                 <div className="login-name">
                     <p>|</p>
                     <p title={user?.email}>{user?.username}</p>
-                    <button onClick={loginRegisterHandler}>{!user ? "LOGIN" : "LOGOUT"}</button>
+                    <button onClick={loginRegisterHandler} disabled={loggingOut}>
+                        {loggingOut ? "LOGGING OUT..." : !user ? "LOGIN" : "LOGOUT"}
+                    </button>
                 </div>
             </header>
             {logoutError && <p role="alert">{logoutError}</p>}
@@ -133,7 +137,7 @@ function MainPage({ loading = false }) {
 
                 <section className="todo-list">
                     {
-                        loading
+                        loading || loggingOut
                             ? Array.from({ length: 3 }, (_, index) => (
                                 <TodoCard key={index} loading />
                             ))

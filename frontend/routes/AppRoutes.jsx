@@ -79,7 +79,7 @@ function AppRoutes() {
 
             <Route
                 path="/tasks"
-                element={<MainPage loading={checkingAuth} />}
+                element={<MainPage setCheckingAuth ={setCheckingAuth} loading={checkingAuth} />}
             />
         </Routes>
     );

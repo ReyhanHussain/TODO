@@ -10,7 +10,7 @@ function LoginPage() {
         email: "",
         password: ""
     });
-    const { setUser,setTodo, loader, setLoader} = useContext(UserContext);
+    const { setUser,setTodo,  setLoader} = useContext(UserContext);
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
