@@ -38,7 +38,7 @@ function AppRoutes() {
                 element={
                     checkingAuth
                         ? <Loader />
-                        : <Navigate to={user ? "/home" : "/login"} replace />
+                        : <Navigate to={"/home"} replace />
                 }
             />
 
