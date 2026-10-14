@@ -89,6 +89,15 @@ function MainPage() {
     async function useAi() {
 
     }
+    useEffect(() => {
+        if (!message) return;
+
+        const timerId = setTimeout(() => {
+            setMessage("");
+        }, 1000);
+
+        return () => clearTimeout(timerId);
+    }, [message, setMessage]);
 
 
     async function loginRegisterHandler() {
