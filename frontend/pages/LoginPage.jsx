@@ -10,7 +10,7 @@ function LoginPage() {
         email: "",
         password: ""
     });
-    const { setUser,setTodo} = useContext(UserContext);
+    const { setUser,setTodo, loader, setLoader} = useContext(UserContext);
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [error, setError] = useState(false);
@@ -31,7 +31,8 @@ function LoginPage() {
         e.preventDefault();
 
         try {
-            setError(false)
+            setError(true);
+            setLoader(true);
             const data = await loginApi(formData);
             setTodo([]);
             setUser(data.user);
@@ -42,6 +43,8 @@ function LoginPage() {
         } catch (error) {
             setMessage(error.message || "Unable to connect to the server.");
             setError(true);
+        } finally {
+            setLoader(false);
         }
     };
 

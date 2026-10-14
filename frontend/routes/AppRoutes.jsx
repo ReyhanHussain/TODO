@@ -8,7 +8,7 @@ import { UserContext } from '../context/userContext';
 import Loader from '../pages/Loader';
 import NotFound from '../pages/NotFound';
 function AppRoutes() {
-    const { setUser, setTodo, user } = useContext(UserContext);
+    const { setUser, setTodo, user, loader } = useContext(UserContext);
     const [checkingAuth, setCheckingAuth] = useState(true);
 
     useEffect(() => {
@@ -58,7 +58,7 @@ function AppRoutes() {
             <Route
                 path="/register"
                 element={
-                    checkingAuth
+                    checkingAuth || loader
                         ? <Loader />
                         : user
                             ? <Navigate to="/home" replace />
@@ -69,7 +69,7 @@ function AppRoutes() {
             <Route
                 path="/login"
                 element={
-                    checkingAuth
+                    checkingAuth || loader
                         ? <Loader />
                         : user
                             ? <Navigate to="/home" replace />

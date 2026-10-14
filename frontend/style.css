@@ -530,12 +530,12 @@ button:disabled {
     height: 20px;
 }
 
-.todo-card-deleting {
+.todo-card-busy {
     overflow: hidden;
     pointer-events: none;
 }
 
-.todo-card-deleting::after {
+.todo-card-busy::after {
     position: absolute;
     inset: 0;
     content: "";

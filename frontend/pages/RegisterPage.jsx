@@ -2,10 +2,10 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import "../registerPage.css";
-import {UserContext} from '../context/userContext'
+import { UserContext } from '../context/userContext'
 
 function RegisterPage() {
-        const {setUser, setTodo} = useContext(UserContext);
+    const { setUser, setTodo, loader, setLoader } = useContext(UserContext);
 
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -22,6 +22,7 @@ function RegisterPage() {
 
     async function register() {
         try {
+            setLoader(true);
             const response = await fetch(
                 `${API_URL}/api/v1/auth/register`,
                 {
@@ -61,6 +62,11 @@ function RegisterPage() {
             );
             setError(true);
         }
+        finally {
+            setLoader(false);
+
+        }
+
     }
     const handleChange = (e) => {
         const { name, value } = e.target;

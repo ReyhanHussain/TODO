@@ -10,64 +10,14 @@ function MainPage({ loading = false }) {
     const [completed, setCompleted] = useState(4);
     const { user, setUser, todo, setTodo, message, setMessage } = useContext(UserContext);
     const [logoutError, setLogoutError] = useState("");
+    const [addingTodo, setAddingTodo] = useState(false);
 
     const navigate = useNavigate();
     const [models, setModels] = useState([
         "gemini-3.1 pro",
         "claude-opus 5.1"
     ])
-    // const [todos, setTodos] = useState([
-    //     {
-    //         id: 1,
-    //         todo: "Review DSA notes",
-    //         completed: false,
-    //     },
-    //     {
-    //         id: 2,
-    //         todo: "Solve two LeetCode problems",
-    //         completed: false,
-    //     },
-    //     {
-    //         id: 3,
-    //         todo: "Practice React Context API",
-    //         completed: true,
-    //     },
-    //     {
-    //         id: 4,
-    //         todo: "Improve todo app CSS",
-    //         completed: false,
-    //     },
-    //     {
-    //         id: 5,
-    //         todo: "Revise DBMS Module 4",
-    //         completed: false,
-    //     },
-    //     {
-    //         id: 6,
-    //         todo: "Build login and signup pages",
-    //         completed: false,
-    //     },
-    //     {
-    //         id: 7,
-    //         todo: "Update GitHub README",
-    //         completed: true,
-    //     },
-    //     {
-    //         id: 8,
-    //         todo: "Practice JavaScript promises",
-    //         completed: false,
-    //     },
-    //     {
-    //         id: 9,
-    //         todo: "Organize project components",
-    //         completed: false,
-    //     },
-    //     {
-    //         id: 10,
-    //         todo: "Plan tomorrow's tasks",
-    //         completed: false,
-    //     },
-    // ]);
+
     function closeToaster() {
         setMessage('');
     }
@@ -77,17 +27,22 @@ function MainPage({ loading = false }) {
             return;
         }
 
+        if (!text.trim()) {
+            setMessage('Todo Empty!!');
+            return;
+        }
+
         try {
-            if (!text.trim()) {
-                setMessage('Todo Empty!!')
-                return
-            } const data = await addTask(text);
+            setAddingTodo(true);
+            const data = await addTask(text);
             setMessage(data.message);
             setTodo((prev) => [...prev, data.todo])
             setText('');
 
         } catch (error) {
             setMessage(error.message);
+        } finally {
+            setAddingTodo(false);
         }
 
     }
@@ -182,9 +137,12 @@ function MainPage({ loading = false }) {
                             ? Array.from({ length: 3 }, (_, index) => (
                                 <TodoCard key={index} loading />
                             ))
-                            : todo?.map((singleTodo) => (
-                                <TodoCard key={singleTodo._id} id={singleTodo._id} todo={singleTodo.title} completed={singleTodo.completed} />
-                            ))
+                            : <>
+                                {todo?.map((singleTodo) => (
+                                    <TodoCard key={singleTodo._id} id={singleTodo._id} todo={singleTodo.title} completed={singleTodo.completed} />
+                                ))}
+                                {addingTodo && <TodoCard key="adding-todo" loading />}
+                            </>
                     }
                 </section>
             </section>
