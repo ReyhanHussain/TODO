@@ -913,7 +913,14 @@ button:disabled {
     border-top: 1px solid #444444;
     font-size: 12px;
 }
-
+.completed{
+    background-color: #00800045;
+    text-decoration: dashed;
+    font-style: italic;
+}
+.completed:hover{
+    background-color: rgba(255, 68, 0, 0.29)
+}
 .register-footer span {
     color: #999999;
 }

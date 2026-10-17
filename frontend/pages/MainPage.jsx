@@ -7,7 +7,6 @@ import addTask from '../apis/todos/addTask';
 
 function MainPage({ loading = false }) {
     const [text, setText] = useState('');
-    const [completed, setCompleted] = useState(4);
     const { user, setUser, todo, setTodo, message, setMessage } = useContext(UserContext);
     const [logoutError, setLogoutError] = useState("");
     const [addingTodo, setAddingTodo] = useState(false);
@@ -78,6 +77,9 @@ function MainPage({ loading = false }) {
             setLoggingOut(false);
         }
     }
+    function getCompletedNum(){
+        return todo.filter((e)=>e.completed == true).length;
+    }
     return (
         <main>
             <div
@@ -123,12 +125,12 @@ function MainPage({ loading = false }) {
                         <p>| TASKS</p>
                     </div>
                     <div className="progress-div">
-                        <span>{completed}/{todo?.length} Complete</span>
+                        <span>{getCompletedNum()}/{todo?.length} Complete</span>
                         <div className="progress-bar">
                             <span
                                 style={{
                                     backgroundColor: "whitesmoke",
-                                    width: `${(completed / todo?.length) * 100}%`,
+                                    width: `${(getCompletedNum() / todo?.length) * 100}%`,
                                 }}
                             />
                         </div>
