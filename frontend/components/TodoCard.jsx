@@ -41,15 +41,17 @@ function TodoCard({ id, todo, completed, edited, loading = false }) {
   }
   useEffect(() => console.log(td), []);
   async function setComplete() {
-    
+
     try {
-      const data = await editTodo({ id, title: todo, completed: !completed });
       setTodo((prev) => {
         return prev.map((e) => e._id == id ? { ...e, completed: !e.completed } : e);
       })
+      
+      const data = await editTodo({ id, title: todo, completed: !completed });
+
       setMessage(data.message);
     } catch (error) {
-     console.log(error)
+      console.log(error)
     }
   }
   if (loading) {
@@ -62,7 +64,7 @@ function TodoCard({ id, todo, completed, edited, loading = false }) {
   }
 
   return (
-    <div onClick={(e)=>{e.stopPropagation; setComplete()}} className={`todo-card${busy ? " todo-card-busy" : ""} ${completed ? "completed" : ""}`} aria-busy={busy}>
+    <div onClick={(e) => { e.stopPropagation; setComplete() }} className={`todo-card${busy ? " todo-card-busy" : ""} ${completed ? "completed" : ""}`} aria-busy={busy}>
       <div className="todo">
         {
           edit ?
